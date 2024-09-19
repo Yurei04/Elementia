@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elementia</title>
+    <link rel="stylesheet" href="CSS/Elementia.css">
+    <link rel="stylesheet" href="CSS/Elementia_style.css">
+    <link rel="stylesheet" href="CSS/home_elementia.css">
+</head>
+<body>
+  <div class="main_menu" id="main_menu">
+    <div class="main_menu_content">
+      <p id="title">ELEMENTIA</p>
+      <button class="start_game" id="start_game" onclick="start_game(this)">Start Game</button>
+    </div>
+  </div>
+  <div id="btn_navigation">
+    <span style="font-size:30px;cursor:pointer;color:white" onclick="openNav()">&#9776; </span>
+  </div>
+    <div id="settings" class="settings_nav">
+        <a href="javascript:void(0)" style="cursor:pointer;color:white" class="closebtn" onclick="closeNav()">&times;</a>
+        <button id="score_limit" onclick="score_limit_change()"><input id="score_entry" type="number" min="5" max="15" placeholder="Score Range" style="font-size: medium;">Enter</button>
+        <button id="reset" onclick="reset()">Reset</button>
+        <button id="surrender" onclick="surrender()">Surrender</button>
+        <button id="modal_button">Instruction</button>
+        <button id="modal_button_reactions">Reactions</button>
+        <button id="music">Background Music</button>
+    </div>
+
+    <audio id="bkg_music" preload="auto" autoplay loop>
+      <source src="music/Elementia Background Music.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="elementia_game">
+        <div id="opponent_section" class="opponent_section">
+            <div id="opponent_1st_choice" class="opponent_1st_choice"></div>
+            <div id="opponent_2nd_choice"></div>
+            <div id="opponent_score">0</div>
+        </div>
+        <div id="player_section" class="player_section">
+            <div id="player_2nd_choice"></div>
+            <div id="player_1st_choice"></div>
+            <div id="player_score">0</div>
+        </div>
+
+<!--elememt choice for both round 1 and 2-->
+        <div id="element_choices">
+            <button id="pyro" onclick="element_choice(this); element_choice_2(this)" class="element"><img src="pyro.png">pyro</button>
+            <button id="hydro" onclick="element_choice(this); element_choice_2(this)" class="element"><img src="hydro.png">hydro</button>
+            <button id="cryo" onclick="element_choice(this); element_choice_2(this)" class="element"><img src="cryo.png">cryo</button>
+            <button id="geo" onclick="element_choice(this); element_choice_2(this)" class="element"><img src="geo.png">geo</button>
+            <button id="electro" onclick="element_choice(this); element_choice_2(this)" class="element"><img src="electro.png">electro</button>
+            <button id="anemo" onclick="element_choice(this); element_choice_2(this)" class="element"><img src="anemo.png">anemo</button>
+            <button id="dendro" onclick="element_choice(this); element_choice_2(this)" class="element"><img src="dendro.png">dendro</button>
+        </div>
+<!--Other aspects of the game-->
+
+<div id="modal_last" class="modal_last_round">
+
+    <!-- Modal content -->
+    <div class="modal_content_last_round">
+      <div class="modal_header_last_round">
+      </div>
+  
+      <div class="modal_body_last_round">
+        <div id="opponent">
+            <div id="opponet_first_choice_final"></div>
+            <div id="opponet_second_choice_final"></div>
+            <div id="opponent_combination"></div>
+        </div>
+        <div id="player">
+            <div id="player_second_choice_final"></div>
+            <div id="player_first_choice_final"></div>
+            <div id="player_combination"></div>
+        </div>
+
+      </div>
+    </div>
+</div>
+
+<!-- Trigger/Open The Modal -->
+
+
+<!-- The Modal -->
+<div id="modal_instruction" class="modal_instruction">
+  <!-- Modal content -->
+  <div class="modal_content_instruction">
+    <div class="modal_header_instruction">
+      <span class="close_instruction">&times;</span>
+      <h2>How To Play The Game</h2>
+    </div>
+
+    <div class="modal_body_instruction">
+        <img src="characters/character6.png" id="character_6_instruction">
+      <p>
+        <br>
+        <strong>
+          Objective:
+        </strong>
+        Defeat the computer by strategically selecting elemental combinations to counter its choices and reach the score limit first.
+        <br>
+        <br>
+        <strong>
+        Game Mechanics:  
+        </strong>
+        Choose your primary elemental vision to begin the clash against the computer's first choice.
+        Select your secondary elemental vision to counter the computer's second choice.
+        The chosen elemental visions will be combined to form a reaction, which will then counter the computer's elemental reaction.
+        Keep track of scores; the first player to reach the score limit wins.
+        <br>
+        <br>
+        <strong>
+        Elemental Choices and Counter Elements:
+        </strong>
+        <br>
+        Pyro - Counter: Hydro
+        Hydro - Counter: Electro
+        Electro - Counter: Cryo
+        Cryo - Counter: Pyro
+        Anemo - Counter: Geo
+        Geo - Counter: Dendro
+        <br>
+        <br>
+        <strong>
+        Reactions and Counter Reactions:  
+        </strong>
+        <br>
+        <!-- yaw maghiwalay asusin fix fix-->
+        Pyro + Hydro = Vaporize - Counter: Cryo
+        Hydro + Electro = Electro-Charged - Counter: Pyro
+        Electro + Cryo = Superconduct - Counter: Hydro
+        Cryo + Pyro = Melt - Counter: Electro
+        Anemo + Geo = Crystallize - Counter: Dendro
+        Geo + Dendro = Burning - Counter: Anemo
+        <br>
+        <br>
+        <strong>
+        Score Limit:  
+        </strong>
+        The score limit can be customized based on player preference or set to a default value (e.g., first to reach 10 points).
+        <br>
+        <br>
+        <strong>
+        Gameplay:
+        </strong>
+        <br>
+        bullshit Instruction katamad gawin 
+        Player selects Pyro as the primary elemental vision.
+        Computer selects Hydro as its first choice.
+        Player selects Electro as the secondary elemental vision.
+        Pyro and Electro combine to form Overloaded, countering Hydro.
+        Player earns a point.
+        Repeat steps 1-5 until one player reaches the score limit and wins the game.</p>
+        <br>
+        <br>
+    </div>
+  </div>
+</div>
+
+
+<div id="modal_reactions" class="modal_reactions">
+  <!-- Modal content -->
+  <div class="modal_content_reactions">
+    <div class="modal_header_reactions">
+      <span class="close_reactions">&times;</span>
+      <h2>Elements</h2>
+    </div>
+
+    <div class="modal_body_reactions">
+        <img src="characters/character1.png" id="character_1_reactions">
+      <p class="left">
+        <strong>Elements Vs Elements</strong>
+        <br>
+        <br>
+        Hydro vs Pyro = Player Wins
+        <br>
+        Hydro vs Geo = Player Wins
+        <br>
+        Hydro vs Cryo = Opponent Wins
+        <br>
+        Hydro vs Anemo = Opponent Wins
+        <br>
+        <br>
+        Cryo vs Hydro = Player Wins
+        <br>
+        Cryo vs Electro = Opponent Wins
+        <br>
+        Cryo vs Dendro = Opponent Wins
+        <br>
+        <br>
+        Geo vs Pyro = Player Wins
+        <br>
+        Geo vs Hydro = Opponent Wins
+        <br>
+        Geo vs Anemo = Player Wins
+        <br>
+        Geo vs Dendro = Opponent Wins
+        <br>
+        <br>
+        Pyro vs Hydro = Player Wins
+        <br>
+        Pyro vs Cryo = Player Wins
+        <br>
+        Pyro vs Geo = Player Wins
+        <br>
+        Pyro vs Electro = Opponent Wins
+        <br>
+        <br>
+        Electro vs Geo = Player Wins
+        <br>
+        Electro vs Hydro = Opponent Wins
+        <br>
+        Electro vs Dendro = Player Wins
+        <br>
+        <br>
+        Dendro vs Electro = Opponent Wins
+        <br>
+        Dendro vs Pyro = Player Wins
+        <br>
+        Dendro vs Anemo = Player Wins
+        <br>
+        <br>
+        Anemo vs Dendro = Opponent Wins
+        <br>
+        Anemo vs Geo = Opponent Wins
+        <br>
+        Anemo vs Cryo = Player Wins
+        <br>
+        <br>
+      </p>
+      <p class="right">
+        <strong>Elemental Reaction VS Elemental Reaction</strong>
+        <br>
+        <br>
+        Electro-Charged vs Vaporize = Player Wins
+        <br>
+        Electro-Charged vs Quicken = Opponent Wins
+        <br>
+        <br>
+        Frozen vs Shatter = Player Wins
+        <br>
+        Frozen vs Burning = Opponent Wins
+        <br>
+        <br>
+        Melt vs Super-Conduct = Player Wins
+        <br>
+        Melt vs Crystallize = Opponent Wins
+        <br>
+        <br>
+        Overloaded vs Electro-Charge = Player Wins
+        <br>
+        Overloaded vs Superconduct = Opponent Wins
+        <br>
+        <br>
+        Shatter vs Melt = Player Wins
+        <br>
+        Shatter vs Frozen = Opponent Wins
+        <br>
+        <br>
+        Superconduct vs Overload = Player Wins
+        <br>
+        Superconduct vs Melt = Opponent Wins
+        <br>
+        <br>
+        Vaporize vs Quicken = Player Wins
+        <br>
+        Vaporize vs Electro-Charged = Opponent Wins
+        <br>
+        <br>
+        Bloom vs Burning = Player Wins
+        <br>
+        Bloom vs Quicken = Opponent Wins
+        <br>
+        <br>
+        Quicken vs Bloom = Player Wins
+        <br>
+        Quicken vs Vaporize = Opponent Wins
+        <br>
+        <br>
+        Burning vs Frozen = Player Wins
+        <br>
+        Burning vs Bloom = Opponent Wins
+        <br>
+        <br>
+        Crystallize vs Bloom = Player Wins
+        <br>
+        Crystallize vs Melt = Player Wins
+        <br>
+        Crystallize vs Burning = Player Wins
+        <br>
+        Crystallize vs Frozen = Player Wins
+        <br>
+        Crystallize vs Quicken = Player Wins
+        <br>
+        Crystallize vs Crystallize = Opponent Wins
+        <br>
+        <br>
+        Swirl vs Crystallize = Player Wins
+        <br>
+        Swirl vs Shatter = Player Wins
+        <br>
+        Swirl vs Overloaded = Player Wins
+        <br>
+        Swirl vs Superconduct = Player Wins
+        <br>
+        Swirl vs Electro-charge = Player Wins
+        <br>
+        Swirl vs Swirl = Opponent Wins
+        <br>
+        <br>
+      </p>
+
+    </div>
+
+  </div>
+</div>
+<!--Start Round modal for game limit-->
+
+
+  <!-- The Modal -->
+
+  <div id="stylization">
+    <div class="background_container">
+        <div class="slides fade" style="background-image: url('background/background_1.jpg');"></div>
+        <div class="slides fade" style="background-image: url('background/inazuma1.jpg');"></div>
+        <div class="slides fade" style="background-image: url('background/background_2.jpg');"></div>
+        <div class="slides fade" style="background-image: url('background/liyue2.jpg');"></div>
+        <div class="slides fade" style="background-image: url('background/background_3.jpg');"></div>
+        <div class="slides fade" style="background-image: url('background/liyue3.jpg');"></div>
+        <div class="slides fade" style="background-image: url('background/background_4.jpg');"></div>
+        <div class="slides fade" style="background-image: url('background/abyss3.png');"></div>
+    </div>
+</div>
+            <div id="music">
+
+            </div>
+        </div>
+    </div>
+
+    <script src="JavaScript/Elementia_reconfigure_4.js"></script>
+    <script src="JavaScript/Elementia_functions.js"></script>
+    <script src="JavaScript/home_elementia.js"></script>
+</body>
+</html>

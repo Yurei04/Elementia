@@ -1,0 +1,36 @@
+.background_container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: -1; 
+}
+
+.slides.fade {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 1s ease-in-out; 
+}
+
+.slides.fade.active {
+    opacity: 1;
+}
+
+@keyframes changeSlide {
+    0% { opacity: 0; }
+    25% { opacity: 1; }
+    75% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+
+#bkg_music{
+    border: 2px solid white;
+    background-color: rgba(10, 10, 83, 0.314);
+    border-radius: 7px;
+}
