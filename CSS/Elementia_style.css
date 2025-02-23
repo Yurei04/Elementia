@@ -34,3 +34,41 @@
     background-color: rgba(10, 10, 83, 0.314);
     border-radius: 7px;
 }
+
+
+#secret-help-btn {
+    align-items: center;
+    height: 100px;
+    width: 250px;
+    color: rgb(0, 0, 0);
+    text-align: center;
+}
+
+#secret-help-btn input {
+    color: black;
+    margin-top: 5px;
+    padding: 5px;
+    font-size: 14px;
+    width: 50%;
+}
+
+#secret-help-btn button {
+    margin-top: 5px;
+    padding: 5px;
+    font-size: 14px;
+    width: 50%;
+}
+
+#helpButton:disabled {
+    background-color: grey;
+    cursor: not-allowed;
+}
+
+#helpButton {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    width: 100%;
+}

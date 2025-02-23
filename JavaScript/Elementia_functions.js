@@ -23,6 +23,24 @@ function instruction(){
     }
 };
 
+document.addEventListener("DOMContentLoaded", function () {
+    const helpInput = document.getElementById("helpInput");
+    const helpButton = document.getElementById("helpButton");
+
+    helpInput.addEventListener("input", function () {
+        if (helpInput.value.trim().toLowerCase() === "i need help") {
+            helpButton.disabled = false;
+        } else {
+            helpButton.disabled = true;
+        }
+    });
+
+    helpButton.addEventListener("click", function () {
+        alert("Help is on the way! Stay strong.");
+    });
+});
+
+
 function reaction(){
     let modal_reactions = document.getElementById("modal_reactions");
     let modal_button_reactions = document.getElementById("modal_button_reactions");
